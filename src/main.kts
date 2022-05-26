@@ -19,8 +19,6 @@ account02.accountOwner = "Alice"
 account02.accountNumber = 1001
 account02.accountBalance = 500.0
 
-
-
 println(account01.accountOwner)
 println(account01.accountNumber)
 println(account01.accountBalance)
@@ -29,13 +27,29 @@ println(account02.accountOwner)
 println(account02.accountNumber)
 println(account02.accountBalance)
 
-//println("Welcome to TechBank $accountOwner!\nYour account number is $accountNumber\nYour account balance is: $accountBalance")
+account01.Deposit(account01, 10.0)
+println(account01.accountBalance)
 
 class Account(){
     var accountOwner: String = ""
     var accountNumber: Int = 0
     var accountBalance: Double = 0.0
 
+
+    fun Deposit(account: Account, value: Double){
+        account.accountBalance += value
+        println("$value dolars has been deposited into your account!")
+    }
+
+    fun Withdraw(account: Account, value: Double){
+        if (account.accountBalance - value >= 0){
+            account.accountBalance -= value
+            println("$value has been withdrawn from your account!")
+        }
+        else{
+            println("You don't have enough funds!")
+        }
+    }
 }
 
 fun checkBalance(accountBalance: Double) {
