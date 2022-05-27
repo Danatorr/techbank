@@ -27,8 +27,10 @@ println(account02.accountOwner)
 println(account02.accountNumber)
 println(account02.accountBalance)
 
-account01.Deposit(account01, 10.0)
+account01.Deposit(10.0)
 println(account01.accountBalance)
+
+account02.Transfer(10.0, account01)
 
 class Account(){
     var accountOwner: String = ""
@@ -36,19 +38,35 @@ class Account(){
     var accountBalance: Double = 0.0
 
 
-    fun Deposit(account: Account, value: Double){
-        account.accountBalance += value
+    fun Deposit(value: Double){
+        this.accountBalance += value
         println("$value dolars has been deposited into your account!")
     }
 
-    fun Withdraw(account: Account, value: Double){
-        if (account.accountBalance - value >= 0){
-            account.accountBalance -= value
+    fun Withdraw(value: Double){
+        if (this.accountBalance >= value){
+            this.accountBalance -= value
             println("$value has been withdrawn from your account!")
         }
         else{
             println("You don't have enough funds!")
         }
+    }
+
+    fun Transfer(value: Double, reciever: Account): Boolean{
+        if(this.accountBalance >= value){
+            this.Withdraw(value)
+            reciever.Deposit(value)
+            println("$value has been transfered to ${reciever.accountOwner}!")
+            return true
+        }
+        else if(this.accountBalance < value){
+            println("Not enough funds!")
+            return false
+        }
+
+        println("There's no such account ID")
+        return false
     }
 }
 
